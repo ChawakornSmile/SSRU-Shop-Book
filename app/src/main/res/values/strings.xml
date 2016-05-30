@@ -3,4 +3,12 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+
+    <string name="signup">SignUp</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="user">User</string>
+    <string name="pass">Password</string>
+    <string name="promote">Regis today free 500P</string>
 </resources>
