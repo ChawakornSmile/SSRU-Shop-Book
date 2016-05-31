@@ -17,6 +17,12 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myManage = new MyManage(MainActivity.this);
+
+        //test add value to sqlite
+        myManage.addNewUser("Name","sur","user","pass","money");
+
+
+
     }   //method
 
 
