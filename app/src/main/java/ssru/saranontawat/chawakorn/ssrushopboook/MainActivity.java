@@ -2,6 +2,7 @@ package ssru.saranontawat.chawakorn.ssrushopboook;
 
 import android.app.DownloadManager;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -10,6 +11,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -23,11 +26,21 @@ public class MainActivity extends ActionBarActivity {
 
     private MyManage myManage;
     private static final String urlJSON = "http://swiftcodingthai.com/ssru/get_user_EIK.php";
+    private EditText userEditText, passwordEditText;
+    private String userString, passwordString;
+    private String[] loginString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        userEditText = (EditText) findViewById(R.id.editText5);
+        passwordEditText = (EditText) findViewById(R.id.editText6);
+
+
+
+
         myManage = new MyManage(MainActivity.this);
 
         //test add value to sqlite
@@ -41,6 +54,65 @@ public class MainActivity extends ActionBarActivity {
 
 
     }   //method
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        deletealluserTABLE();
+        synJSONtoSQLite();
+
+    }
+
+    public  void clickSignIn(View view) {
+
+        userString = userEditText.getText().toString().trim();
+        passwordString = passwordEditText.getText().toString().trim();
+
+        // check space
+        if (userString.equals("") || passwordString.equals("")) {
+            Myalert myalert = new Myalert();
+            myalert.myDialog(this, "Have Space", "Please Try Again");
+        } else {
+            checkUserAnPassword();
+
+        }
+
+
+    }   //clicksighin
+
+    private void checkUserAnPassword() {
+
+        try {
+
+            SQLiteDatabase sqLiteDatabase = openOrCreateDatabase(MyOpenHelper.database_name,MODE_PRIVATE,null);
+            Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM userTABLE WHERE User = " + "'" + userString + "'", null);
+            cursor.moveToFirst();
+
+            loginString = new String[cursor.getColumnCount()];
+            for (int i = 0; i < cursor.getColumnCount(); i++) {
+                loginString[i] = cursor.getString(i);
+
+            } //for
+            cursor.close();
+            // check password
+            if (passwordString.equals(loginString[4])) {
+                // password true
+                Toast.makeText(this, "Welcome WTF " + " "+loginString[1]+ " " + loginString[2],
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                //password false
+                Myalert myalert = new Myalert();
+                myalert.myDialog(this, "Fucking Stupid ", "PassWord False Try Again");
+            }
+
+        } catch (Exception e) {
+
+            Myalert myalert = new Myalert();
+            myalert.myDialog(this,"Fucking Stupid","No  " + userString + " In Database");
+        }
+
+    } //check user and password
 
     private void synJSONtoSQLite() {
 
@@ -89,6 +161,7 @@ public class MainActivity extends ActionBarActivity {
                     String strMoney = jsonObject.getString(MyManage.coLumn_money);
 
                     myManage.addNewUser(strName, strSurname, strUser, strPassword, strMoney);
+
 
                 }   //for
 
