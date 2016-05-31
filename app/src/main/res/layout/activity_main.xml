@@ -30,4 +30,40 @@
             android:textColor="@color/text" />
     </LinearLayout>
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:padding="20dp"
+        android:gravity="center_horizontal"
+        android:background="#96fdffff"
+        android:clickable="false">
+
+        <ImageView
+            android:layout_width="@dimen/icon"
+            android:layout_height="@dimen/icon"
+            android:id="@+id/imageView"
+            android:src="@drawable/ssru_new" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText5"
+            android:hint="User"
+            android:inputType="text"
+            android:textColor="@color/text1"
+            android:textColorHint="@color/text" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText6"
+            android:hint="Password"
+            android:inputType="textPassword|text"
+            android:textColor="@color/text1"
+            android:textColorHint="@color/text" />
+    </LinearLayout>
+
 </RelativeLayout>

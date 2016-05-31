@@ -10,11 +10,15 @@ import android.view.View;
 
 public class MainActivity extends ActionBarActivity {
 
+    private MyManage myManage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        myManage = new MyManage(MainActivity.this);
     }   //method
+
 
     public void clickSignUpMain(View view) {
         startActivity(new Intent(MainActivity.this,SignUpActivity.class));

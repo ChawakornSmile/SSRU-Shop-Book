@@ -5,4 +5,5 @@
 
     <dimen name="h1">50sp</dimen>
     <dimen name="h2">20sp</dimen>
+    <dimen name="icon">250dp</dimen>
 </resources>
