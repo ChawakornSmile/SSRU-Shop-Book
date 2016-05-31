@@ -15,6 +15,9 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -74,6 +77,23 @@ public class MainActivity extends ActionBarActivity {
 
             try {
                 Log.d("31May", "JSON ==> " + s);
+
+                JSONArray jsonArray = new JSONArray(s);
+                for (int i = 0; i < jsonArray.length(); i++) {
+
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    String strName = jsonObject.getString(MyManage.coLumn_name);
+                    String strSurname = jsonObject.getString(MyManage.coLumn_surname);
+                    String strUser = jsonObject.getString(MyManage.coLumn_user);
+                    String strPassword = jsonObject.getString(MyManage.coLumn_password);
+                    String strMoney = jsonObject.getString(MyManage.coLumn_money);
+
+                    myManage.addNewUser(strName, strSurname, strUser, strPassword, strMoney);
+
+                }   //for
+
+
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
